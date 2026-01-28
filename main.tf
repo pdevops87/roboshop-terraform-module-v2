@@ -1,4 +1,5 @@
 module "ec2"{
+  depends_on = [module.network]
   source = "./ec2"
   component = var.component
   ami = var.ami
@@ -14,6 +15,7 @@ module "network"{
 
 
 module "route53"{
+  depends_on = [module.ec2]
   source = "./route53"
   components = module.ec2.components
   type = "A"
