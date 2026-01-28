@@ -11,6 +11,7 @@ module "network"{
   env = var.env
 }
 
+
 module "route53"{
   source = "./route53"
   components = module.ec2.components
