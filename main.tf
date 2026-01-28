@@ -22,6 +22,7 @@ module "route53"{
   type = "A"
   zone_id = var.zone_id
   privateIP = module.ec2[each.key].private_ip
+  env=var.env
 }
 
 module "ansible"{
