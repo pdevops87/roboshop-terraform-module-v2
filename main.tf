@@ -14,7 +14,6 @@ module "network"{
   env = var.env
 }
 
-
 module "route53"{
   for_each = var.components
   depends_on = [module.ec2]
@@ -22,5 +21,14 @@ module "route53"{
   components = module.ec2[each.key].components
   type = "A"
   zone_id = var.zone_id
+  privateIP = module.ec2[each.key].private_ip
+}
+
+module "ansible"{
+  for_each = var.components
+  source = "./ansible"
+  instanceId = module.ec2[each.key].instance
+  component = module.ec2[each.key].components
+  env = var.env
   privateIP = module.ec2[each.key].private_ip
 }
