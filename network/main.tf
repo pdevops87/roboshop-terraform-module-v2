@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg" {
-  name = "allow-all"
+  name = "${var.env}-sg"
   tags = {
     Name = "${var.env}-sg"
   }
