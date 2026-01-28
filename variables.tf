@@ -1,7 +1,7 @@
 variable "components" {
   default = {
     frontend    =   ""
-#     mongodb     =   ""
+    mongodb     =   ""
 #     catalogue   =   ""
 #     redis       =   ""
 #     cart        =   ""
