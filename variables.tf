@@ -1,5 +1,16 @@
-variable "component"{
-  default = "frontend"
+variable "components" {
+  default = {
+    frontend    =   ""
+    mongodb     =   ""
+    catalogue   =   ""
+    redis       =   ""
+    cart        =   ""
+    user        =   ""
+    mysql       =   ""
+    shipping    =   ""
+    payment     =   ""
+    rabbitmq    =   ""
+  }
 }
 variable "ami" {
   default="ami-0220d79f3f480ecf5"

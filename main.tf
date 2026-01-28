@@ -1,7 +1,8 @@
 module "ec2"{
+  for_each = var.components
   depends_on = [module.network]
   source = "./ec2"
-  component = var.component
+  component = each.key
   ami = var.ami
   instance_type = var.instance_type
   vpc_sg = module.network.sg
@@ -15,10 +16,11 @@ module "network"{
 
 
 module "route53"{
+  for_each = var.components
   depends_on = [module.ec2]
   source = "./route53"
   components = module.ec2.components
   type = "A"
   zone_id = var.zone_id
-  privateIP = module.ec2.private_ip
+  privateIP = module.ec2[each.key].private_ip
 }
