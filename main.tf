@@ -4,6 +4,7 @@ module "ec2"{
   ami = var.ami
   instance_type = var.instance_type
   vpc_sg = module.network.sg
+  env=var.env
 }
 
 module "network"{
