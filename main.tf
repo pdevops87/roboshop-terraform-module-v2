@@ -28,7 +28,7 @@ module "ansible"{
   for_each = var.components
   source = "./ansible"
   instanceId = module.ec2[each.key].instance
-  component = module.ec2[each.key].components
+  component = each.key
   env = var.env
   privateIP = module.ec2[each.key].private_ip
 }
