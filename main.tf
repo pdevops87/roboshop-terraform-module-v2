@@ -19,7 +19,7 @@ module "route53"{
   for_each = var.components
   depends_on = [module.ec2]
   source = "./route53"
-  components = module.ec2.components
+  components = module.ec2[each.key].components
   type = "A"
   zone_id = var.zone_id
   privateIP = module.ec2[each.key].private_ip
