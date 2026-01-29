@@ -1,7 +1,6 @@
 resource "null_resource" "provisioner" {
   triggers = {
     timestamp = timestamp()
-    instance_id = var.instanceId
   }
   provisioner "remote-exec" {
     connection {

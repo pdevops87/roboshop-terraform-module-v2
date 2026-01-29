@@ -3,5 +3,5 @@ resource "aws_route53_record" "record" {
   type    = var.type
   zone_id = var.zone_id
   records = [var.privateIP]
-  ttl = 300
+  ttl = 30
 }
