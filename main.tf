@@ -25,6 +25,7 @@ module "route53"{
 }
 
 module "ansible"{
+  depends_on = [module.route53]
   source="./ansible"
   component = var.components
   env = var.env
