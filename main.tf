@@ -20,7 +20,7 @@ module "route53"{
   components = var.components
   type = "A"
   zone_id = var.zone_id
-  privateIP = module.ec2.ip.private_ip
+  privateIP = module.ec2.ip
   env=var.env
 }
 
@@ -28,7 +28,7 @@ module "ansible"{
   source="./ansible"
   component = var.components
   env = var.env
-  privateIP = module.ec2.ip.private_ip
+  privateIP = module.ec2.ip
 }
 
 
