@@ -14,14 +14,14 @@ module "network"{
   env = var.env
 }
 
-# module "route53"{
-#   for_each = var.components
-#   source = "./route53"
-#   components = each.key
-#   type = "A"
-#   zone_id = var.zone_id
-#   privateIP = module.ec2[each.key].private_ip
-#   env=var.env
-# }
+module "route53"{
+  for_each = var.components
+  source = "./route53"
+  components = each.key
+  type = "A"
+  zone_id = var.zone_id
+  privateIP = module.ec2[each.key].ip.private_ip
+  env=var.env
+}
 
 

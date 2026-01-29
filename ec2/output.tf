@@ -1,8 +1,8 @@
 output "components" {
   value = var.component
 }
-output "private_ip" {
-  value = aws_instance.instance.private_ip
+output "ip" {
+  value = aws_instance.instance
 }
 
 output "instance"{
