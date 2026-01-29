@@ -1,0 +1,8 @@
+module "nework"{
+source="./network
+}
+
+1. create a custom security group
+2. create ingress and egress
+
+
