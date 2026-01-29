@@ -1,8 +1,7 @@
 module "ec2"{
   depends_on = [module.network]
   source = "./ec2"
-  for_each = var.components
-  component = each.key
+  component = var.components
   ami = var.ami
   instance_type = var.instance_type
   vpc_sg = module.network.sg
