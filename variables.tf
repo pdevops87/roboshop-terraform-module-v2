@@ -1,16 +1,19 @@
-variable "components" {
-  default = {
-    frontend    =   ""
-#     mongodb     =   ""
-#     catalogue   =   ""
-#     redis       =   ""
-#     cart        =   ""
-#     user        =   ""
-#     mysql       =   ""
-#     shipping    =   ""
-#     payment     =   ""
-#     rabbitmq    =   ""
-  }
+# variable "components" {
+#   default = {
+#     frontend    =   ""
+# #     mongodb     =   ""
+# #     catalogue   =   ""
+# #     redis       =   ""
+# #     cart        =   ""
+# #     user        =   ""
+# #     mysql       =   ""
+# #     shipping    =   ""
+# #     payment     =   ""
+# #     rabbitmq    =   ""
+#   }
+# }
+variable "components"{
+  default = "frontend"
 }
 variable "ami" {
   default="ami-0220d79f3f480ecf5"
