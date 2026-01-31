@@ -1,8 +1,96 @@
-module "nework"{
-source="./network
+.tfvars:
+========
+two types:
+1. .tfvars: ex: dev.tfvars
+2. .auto.tfvars
+
+
+
+* passing multiple tfvars
+if there are two .tfvars
+x.tfvars: 100
+y.tfvars> 200 , it will override with second value
+
+
+The state file is updated only when Terraform runs and refreshes or applies changes based on the cloud provider’s actual state.
+drift detection:
+================
+manually delete old resource (t3.small) and recreate a resource with t3.micro
+The resource in the state (i-12345) does not exist in the cloud → marked as to be created
+
+The manually created resource (i-67890) is unknown to Terraform → also will be created if you reapply your config
+
+Terraform will not automatically know that the manual t3.small instance is “the same” as your resource in code
+Manual deletion + creation = drift
+
+Terraform detects drift when state vs cloud mismatch
+
+Terraform cannot automatically assume your manual t3.small is the same resource → you must import it or Terraform will try to recreate it
+
+1. during terraform apply:
+creates both state file and cloud vendor(aws) through provider
+2. changes in terraform configuration code:
+terraform apply,
+terraform checks in state file
+Query to cloud provider(what to exists , what needs to update)
+first chnages are made in cloud vendor then changes are made in state file
+
+[Terraform config] + [State file] + [Cloud provider]
+        ↓ plan/apply
+Cloud provider updated → Terraform confirms success → State file updated
+
+
+s3 bucket:
+==========
+Terraform applies resources → updates in-memory state (and temporary local file) →
+on successful completion → final state written to S3.
+splat expressions:
+===================
+variable "ports"{
+default = {
+ssh=22
+nginx=80
+node=8080
+}
 }
 
-1. create a custom security group
-2. create ingress and egress
+how to loop?
+output "list"{
+value=[for x,y in var.ports : y]
+}
 
+here x is a key and y is a value
+
+ex:2
+====
+variable "dummy"{
+default = {
+apple = {
+  price = 100
+}
+banana={
+price=100
+}
+citrus={
+price=100
+}
+}
+}
+
+output "dummy"{
+value = {for x,y in var.dummy : x => y.price}
+}
+here x is a key and y is a value
+
+
+.tfvars
+state file
+s3 bucket
+dynamodb
+splat expression
+locals
+terraform conditions
+
+
+terraform plan -var create_ec2=true
 
