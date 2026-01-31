@@ -94,3 +94,96 @@ terraform conditions
 
 terraform plan -var create_ec2=true
 
+
+
+========================================================================================
+to provide values dynamically according to the requirement so
+1.create a folder
+2. inside a folder create a two files dev.tfvars , prod.tfvars and main.tfvars
+
+main.tf
+===========
+variable "env"{}
+output "env"{
+value=var.env
+}
+
+dev.tfvars:
+===========
+env="dev"
+
+prod.tfvars:
+============
+env="prod"
+
+terraform init
+terraform apply -var-file=dev.tfvars
+
+
+variables-3:
+============
+create  two folders dev and prod
+dev
+--
+main.tf
+dev.auto.tfvars
+
+prod
+----
+main.tf:  same as above
+prod.auto.tfvars
+
+
+terraform init
+terraform apply -auto-approve, here auto variable values are detected
+
+how to read more than one .tfvars file ?
+terraform apply -var-file=env-dev/dev.tfvars  -var-file=env-prod/prod.tfvars
+if there are multiple .tfvars its difficult to write everything then we should go .auto.tfvars
+
+Passing multiple tfvars:
+========================
+terraform apply -var-file=dev.tfvars  - var-file=prod.tfvars , here if there are multiple .tfvars with same variable names like
+dev.tfvars : env="dev"
+prod.tfvars : env="prod"
+then last env value overrides dev with prod
+here order is important ----> latest overrides new
+
+autoloaded .auto.tfvars
+-----------------------
+terraform.tfvars
+dev.auto.tfvars
+prod.auto.tfvars
+terraform apply, then it will load automatically
+
+
+state:
+======
+create a state folder
+create a file main.tf
+main.tf
+========
+terraform {
+  backend "s3" {
+    bucket = "mybucket"
+    key    = "sample/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
+output "test"{
+value="Hello"
+}
+
+
+S3 backend = store Terraform state file as a file in S3
+DynamoDB = optional locking mechanism
+Terraform does not store state in a database
+
+dynamodb:
+=========
+* suppose if we open cd /etc/passwd in one server , to open same path in another server we will get an error like already same path is in open
+terraform.tfstate file if one of the team member can able to do changes ,but multiple team members open and edit at a time , there conflicts will come , who edit or delete
+use_lockfile = true enables local concurrency protection.
+Running terraform init creates .terraform.lock.hcl to lock provider versions.
+Terraform automatically updates this lock file only if provider versions change; otherwise it remains unchanged.
