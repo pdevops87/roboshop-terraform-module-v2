@@ -1,5 +1,5 @@
-variable "env" {}
+variable "env1" {}
 
-output "env" {
-  value = var.env
+output "env1" {
+  value = var.env1
 }
