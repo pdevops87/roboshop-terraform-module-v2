@@ -5,7 +5,6 @@ two types:
 2. .auto.tfvars
 
 
-
 * passing multiple tfvars
 if there are two .tfvars
 x.tfvars: 100
@@ -44,6 +43,7 @@ s3 bucket:
 ==========
 Terraform applies resources → updates in-memory state (and temporary local file) →
 on successful completion → final state written to S3.
+
 splat expressions:
 ===================
 variable "ports"{
@@ -93,8 +93,6 @@ terraform conditions
 
 
 terraform plan -var create_ec2=true
-
-
 
 ========================================================================================
 to provide values dynamically according to the requirement so
